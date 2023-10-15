@@ -33,7 +33,9 @@ function New-KaseyaApiAccessToken {
 	$CoveredSHA1Hash = New-Hash -Algorithm 'SHA1' -Text "$CoveredSHA1HashTemp$RandomNumber"
 
 	# Create base64 encoded authentication for Authorization header 
-	$auth = 'user={0},pass2={1},pass1={2},rpass2={3},rpass1={4},rand2={5}' -f $kaseyaApiUser, $CoveredSHA256Hash, $CoveredSHA1Hash, $RawSHA256Hash, $RawSHA1Hash, $RandomNumber
+	#$auth = 'user={0},pass2={1},pass1={2},rpass2={3},rpass1={4},rand2={5}' -f $kaseyaApiUser, $CoveredSHA256Hash, $CoveredSHA1Hash, $RawSHA256Hash, $RawSHA1Hash, $RandomNumber
+	
+	$auth = '{0}:{1}' -f $kaseyaApiUser, $KaseyaApiPswd
 	$authBase64Encoded = [System.Convert]::ToBase64String([System.Text.Encoding]::UTF8.GetBytes($auth)) 
 
 	# Define parameters for Invoke-WebRequest cmdlet
